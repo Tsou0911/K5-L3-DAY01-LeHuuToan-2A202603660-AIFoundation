@@ -1,0 +1,227 @@
+{
+ "seed": 2886,
+ "predictions": {
+  "ml_f1": {
+   "text": "F1 ~0.85, precision cao hơn recall vì mô hình có thể bỏ sót một số tin nhắn spam có cách diễn đạt khác.",
+   "time": "14:38:10"
+  },
+  "ml_lr": {
+   "text": "lr=0.001 học rất chậm nên loss giảm cực kỳ từ từ và chưa thể tối ưu sau 300 epochs, lr=0.5 hội tụ mượt mà và nhanh chóng, lr=50 quá lớn làm bước nhảy cực đại gây ra hiện tượng bùng nổ gradient khiến loss dao động dữ dội hoặc phân kỳ.",
+   "time": "14:38:16"
+  },
+  "dl_curve": {
+   "text": "(1)val loss sẽ giảm đều kho gần chạm về 0, (2) MLP sẽ tốt với nh lớp layer ",
+   "time": "14:38:52"
+  },
+  "dl_relu": {
+   "text": "tương đương với mô hình linear 1 lớp, F1 có thể giảm nhẹ hoặc gần như không đổi vì mô hình mất khả năng học tuuyeesn tính ",
+   "time": "14:39:02"
+  },
+  "emb_search": {
+   "text": "là spam ",
+   "time": "14:39:49"
+  },
+  "emb_tricky": {
+   "text": "3b.Encoder + LogReg",
+   "time": "14:40:01"
+  },
+  "llm_models": {
+   "text": "(1)Model lớn có F1 khoảng 0.95, model nhỏ khoảng 0.93, chênh khoảng 0.02   (2)Khoảng 2.4 lần  (3) chỉ ngang chứ không thắng lợi thế của LLM là không cần huấn luyện và không cần nhãn, còn Encoder rẻ hơn và nhanh hơn khi chạy khối lượng lớn.",
+   "time": "15:35:52"
+  },
+  "llm_fewshot": {
+   "text": "(1)Tôi dự đoán tăng, (2)Tôi dự đoán khoảng 2.5 lần)",
+   "time": "15:27:11"
+  },
+  "tradeoff": {
+   "text": "trước khi vẽ nó nằm trên đường Pareto: BoW + MLP, MiniLM + LogReg và MiniLM + MLP head///Bên phải vạch SLA 50 ms: LLM nhỏ zero-shot và LLM nhỏ few-shot vì latency khoảng 598–655 ms/tin.",
+   "time": "15:52:26"
+  },
+  "hard_eval": {
+   "text": "(1): BoW + LogReg\t50–65% BoW + MLP\t55–70% MiniLM + kNN\t65–80% MiniLM + LogReg\t70–85% MiniLM + MLP head\t70–85% LLM nhỏ zero-shot\t70–85% LLM nhỏ few-shot\t75–90% (2):BoW: obfuscation (né từ khóa) vì từ bị biến đổi khiến mô hình khó nhận diện.LLM: prompt_injection vì nội dung cố tình thao túng chỉ dẫn của mô hình ",
+   "time": "16:19:57"
+  }
+ },
+ "checks": {
+  "1.1 vectorize": true,
+  "1.2 sigmoid / predict_proba": true,
+  "1.3 train_logreg": true,
+  "1.4 metrics": true,
+  "2.1 build_mlp": true,
+  "2.2 train_mlp": true,
+  "3.1–3.2 cosine / top_k_similar": true,
+  "3.3 knn_predict": true,
+  "4.2–4.3 prompt / parse_label": true,
+  "4.1 + 4.4 call_openai / llm_classify_batch": true,
+  "tính tay: baseline_accuracy": false,
+  "tính tay: sigmoid_0": false,
+  "tính tay: f1_example": false,
+  "tính tay: cosine_example": false,
+  "tính tay: llm_cost_per_day": false
+ },
+ "experiments": [
+  {
+   "key": "ml_f1",
+   "time": "14:38:10"
+  },
+  {
+   "key": "ml_lr",
+   "time": "14:38:16"
+  },
+  {
+   "key": "dl_curve",
+   "time": "14:38:52"
+  },
+  {
+   "key": "dl_relu",
+   "time": "14:39:02"
+  },
+  {
+   "key": "emb_search",
+   "time": "14:39:49"
+  },
+  {
+   "key": "emb_tricky",
+   "time": "14:40:01"
+  },
+  {
+   "key": "llm_models",
+   "time": "14:50:48"
+  },
+  {
+   "key": "llm_models",
+   "time": "14:54:16"
+  },
+  {
+   "key": "llm_models",
+   "time": "14:56:19"
+  },
+  {
+   "key": "llm_models",
+   "time": "15:00:25"
+  },
+  {
+   "key": "llm_models",
+   "time": "15:01:46"
+  },
+  {
+   "key": "llm_models",
+   "time": "15:18:23"
+  },
+  {
+   "key": "llm_models",
+   "time": "15:23:16"
+  },
+  {
+   "key": "llm_fewshot",
+   "time": "15:27:12"
+  },
+  {
+   "key": "llm_models",
+   "time": "15:30:39"
+  },
+  {
+   "key": "llm_models",
+   "time": "15:35:53"
+  },
+  {
+   "key": "llm_fewshot",
+   "time": "15:39:51"
+  },
+  {
+   "key": "tradeoff",
+   "time": "15:52:28"
+  },
+  {
+   "key": "hard_eval",
+   "time": "16:07:37"
+  }
+ ],
+ "challenge": 0,
+ "results": {
+  "1. BoW + LogReg (tự code)": {
+   "accuracy": 0.8670967741935484,
+   "precision": 0.0,
+   "recall": 0.0,
+   "f1": 0.0,
+   "f1_SUB": 0.0,
+   "train_s": 5.481870318000006,
+   "msg_per_s": 17090.480443620665,
+   "p50_ms": 0.06380700000363504,
+   "p95_ms": 0.5927465000198124,
+   "usd_per_1k": 0.0
+  },
+  "2. BoW + MLP (deep learning)": {
+   "accuracy": 0.9767741935483871,
+   "precision": 0.9775280898876404,
+   "recall": 0.8446601941747572,
+   "f1": 0.9062499999999999,
+   "f1_SUB": 0.8571428571428571,
+   "train_s": 9.515122735000006,
+   "msg_per_s": 12750.286058836455,
+   "p50_ms": 0.2569995000101244,
+   "p95_ms": 4.302874749991759,
+   "usd_per_1k": 0.0
+  },
+  "3a. Encoder (MiniLM) + kNN": {
+   "accuracy": 0.9767741935483871,
+   "precision": 0.9047619047619048,
+   "recall": 0.9223300970873787,
+   "f1": 0.9134615384615385,
+   "f1_SUB": 0.9230769230769231,
+   "train_s": 2.352981150000005,
+   "msg_per_s": 97.44796671010084,
+   "p50_ms": 15.993082499988986,
+   "p95_ms": 18.47862414999353,
+   "usd_per_1k": 0.0
+  },
+  "3b. Encoder (MiniLM) + LogReg": {
+   "accuracy": 0.9858064516129033,
+   "precision": 0.9791666666666666,
+   "recall": 0.912621359223301,
+   "f1": 0.9447236180904524,
+   "f1_SUB": 0.9473684210526316,
+   "train_s": 2.700861921000012,
+   "msg_per_s": 1349.24146471808,
+   "p50_ms": 6.426129499999433,
+   "p95_ms": 7.325203700018789,
+   "usd_per_1k": 0.0
+  },
+  "3c. Encoder (MiniLM) + MLP head": {
+   "accuracy": 0.9870967741935484,
+   "precision": 1.0,
+   "recall": 0.9029126213592233,
+   "f1": 0.9489795918367347,
+   "f1_SUB": 0.9473684210526316,
+   "train_s": 3.3722374200000047,
+   "msg_per_s": 1651.2140023628717,
+   "p50_ms": 19.09507250000786,
+   "p95_ms": 31.05528939998691,
+   "usd_per_1k": 0.0
+  },
+  "4a. LLM nhỏ zero-shot": {
+   "accuracy": 0.9,
+   "precision": 0.9444444444444444,
+   "recall": 0.85,
+   "f1": 0.8947368421052632,
+   "f1_SUB": 0.8947368421052632,
+   "train_s": 0.0,
+   "msg_per_s": 1.4360957957675855,
+   "p50_ms": 655.0304860002143,
+   "p95_ms": 1078.5284806501975,
+   "usd_per_1k": 0.02231
+  },
+  "4c. LLM nhỏ few-shot": {
+   "accuracy": 0.95,
+   "precision": 1.0,
+   "recall": 0.9,
+   "f1": 0.9473684210526316,
+   "f1_SUB": 0.9473684210526316,
+   "train_s": 0.0,
+   "msg_per_s": 1.602605757986058,
+   "p50_ms": 598.0807230000664,
+   "p95_ms": 917.9312604499501,
+   "usd_per_1k": 0.06039333333333333
+  }
+ }
+}
